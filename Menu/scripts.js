@@ -82,117 +82,67 @@ const menu = [
     },
   ];
 
-//Get elements
+//Get Elements
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
-const sectionCenter = $('.section-center');
-const filterBtn = $$('.filter-btn');
+
+const SectionCenter = $('.section-center');
 const BtnContainer = $('.btn-container');
 
-
-window.addEventListener('DOMContentLoaded', (e) => {
-   showMenu(menu);
-   showDisplayBtns();
-});
-
-
-// function showMenu(type) {
-//     let menuItems = type.map((item) => {
-//         return `<article class="menu-item">
-//         <img src="${item.img}" class="photo" />
-//         <div class="item-info">
-//           <header>
-//             <h4>${item.title}</h4>
-//             <h4 class="price">$${item.price}</h4>
-//           </header>
-//           <p class="item-text">
-//             ${item.desc}
-//           </p>
-//         </div>
-//       </article>`
-//     }).join("");
-//     sectionCenter.innerHTML = menuItems;
-// }
-
-// function displayMenuButtons() {
-//     const categories = menu.reduce(function(a, currentValue) {
-//         if(!a.includes(currentValue.category)) {
-//             a.push(currentValue.category);
-//         }
-//         return a;
-//     }, ["all"]);
-//     const categoriesBtn = categories.map((category) => {
-//         return `<button type="button" class="filter-btn" data-id=${category}>
-//              ${category}
-//         </button>`;
-//     }).join("");
-//     BtnContainer.innerHTML = categoriesBtn;
-    
-//     const filterBtns = BtnContainer.querySelectorAll(".filter-btn");
-//     const filterBtn = filterBtns.forEach((btn) => {
-//         btn.onclick = function(e) {
-//             const category = e.currentTarget.dataset.id;
-//             const menuCategory = menu.filter((arrCategory) => {
-//                 if(category === arrCategory.category) {
-//                     return arrCategory;
-//                 }
-//             })
-//             if(category === "all") {
-//                 showMenu(menu);
-//             }
-//             else {
-//                 showMenu(menuCategory);
-//             }
-//         }
-//     });
-// }
-
+window.addEventListener("DOMContentLoaded", (() => {
+  showMenu(menu);
+  showDisplayBtns();
+}))
 
 function showMenu(MenuType) {
-    let menu = MenuType.map((menuItem) => {
+    const menu = MenuType.map((MenuItem) => {
         return `<article class="menu-item">
-        <img src="${menuItem.img}" />
+        <img src="${MenuItem.img}" />
         <div class="item-info">
           <header>
-            <h4>${menuItem.title}</h4>
-            <h4 class="price">$${menuItem.price}</h4>
+            <h4>${MenuItem.title}</h4>
+            <h4 class="price">$${MenuItem.price}/h4>
           </header>
           <p class="item-text">
-            ${menuItem.desc}
+            ${MenuItem.desc}
           </p>
         </div>
       </article>`
     }).join("");
-    sectionCenter.innerHTML = menu;
+    SectionCenter.innerHTML = menu;
 }
 
 function showDisplayBtns() {
     const categories = menu.reduce((acc, currentValue) => {
         if(!acc.includes(currentValue.category)) {
-            acc.push(currentValue.category);
+          acc.push(currentValue.category);
         }
         return acc;
-    }, ["all"])
+    },["all"])
     const category = categories.map((cate) => {
-        return `<button type="button" class="filter-btn" data-id="${cate}">${cate}</button>`
+      return `<button type="button" class="filter-btn" data-id="${cate}">${cate}</button>`
     }).join("");
     BtnContainer.innerHTML = category;
 
-    const filterBtns = BtnContainer.querySelectorAll('.filter-btn');
+    const filterBtns = BtnContainer.querySelectorAll(".filter-btn");
     const filterBtn = filterBtns.forEach((btn) => {
-        btn.onclick = function(e) {
-            const btnCate = e.currentTarget.dataset.id;
-            const menuCate = menu.filter((menuItem) => {
-                if(btnCate === menuItem.category) {
-                    return menuItem
-                }
-            })
-            if(btnCate === 'all') {
-                showMenu(menu);
-            }
-            else {
-                showMenu(menuCate);
-            }
+      btn.onclick = (e) => {
+        const BtnCate = e.currentTarget.dataset.id;
+        const MenuCate = menu.filter((menuItem) => {
+          if(BtnCate === menuItem.category) {
+            return menuItem;
+          }
+        })
+
+        if(BtnCate === "all") {
+          showMenu(menu);
         }
+        else {
+          showMenu(MenuCate);
+        }
+       }
     })
 }
+
+//Learn not to hard code
+// Dataset
