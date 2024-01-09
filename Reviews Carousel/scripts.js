@@ -85,3 +85,5 @@ randBtn.onclick = function() {
     let randomNumb = Math.floor(Math.random() * reviews.length);
     showPerson(randomNumb);
 }
+
+//DOMContentLoaded: return when structure of DOM finishes (just the HTML ) -> it doesnt wait for the images, subframes ,.....

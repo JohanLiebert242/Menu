@@ -35,5 +35,5 @@ btns.forEach((btn) => {
     }
 })
 
-//properties : currenTarget -> currentTarget.classList
-// methods: element.classList.contains("...") -> kiểm tra xem có class nào đó hay không
+//properties : currentTarget -> currentTarget.classList
+// methods: element.classList.contains("...") -> kiểm tra xem có class nào đó hay không (string)

@@ -14,3 +14,5 @@ questions.forEach((question) => {
         
     }
 })
+
+//closest("class") -> return the closest parent element that has the matched class
