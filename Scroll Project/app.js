@@ -4,12 +4,17 @@ const $$ = document.querySelectorAll.bind(document);
 const navToggle = $('.nav-toggle');
 const linksContainer = $('.links-container');
 const links = $(".links");
+const nav = document.getElementById('nav');
+const topLink = $('.top-link');
+const scrollLinks = $$(".scroll-link");
 
 
-//Toggle Nav button on small screen
+
+//Show nav in mobile screen
 navToggle.onclick = (e) => {
-    let linksContainerHeight = linksContainer.getBoundingClientRect().height;
-    let linksHeight = links.getBoundingClientRect().height;
+    const linksContainerHeight = linksContainer.getBoundingClientRect().height;
+    const linksHeight = links.getBoundingClientRect().height;
+
     if(linksContainerHeight === 0) {
         linksContainer.style.height = `${linksHeight}px`;
     }
@@ -18,52 +23,54 @@ navToggle.onclick = (e) => {
     }
 }
 
-//Nav fixed + Top link Btn
-const navbar = document.getElementById('nav');
-const topLinkBtn = $(".top-link");
+//Show fixed nav + go-home btn
 window.onscroll = (e) => {
-    let navbarHeight = navbar.getBoundingClientRect().height;
-    let windowHeight = window.pageYOffset;
-    if(windowHeight > navbarHeight) {
-        navbar.classList.add("fixed-nav");
+    const windowCurrentHeight = window.pageYOffset;
+    const navHeight = nav.getBoundingClientRect().height;
+
+
+    if(windowCurrentHeight > navHeight) {
+        nav.classList.add('fixed-nav');
     }
     else {
-        navbar.classList.remove("fixed-nav");
+        nav.classList.remove('fixed-nav');
     }
-    if(windowHeight > 500) {
-        topLinkBtn.classList.add('show-link');
+
+    if(windowCurrentHeight > 500) {
+        topLink.classList.add('show-link');
+    }
+    else {
+        topLink.classList.remove('show-link');
     }
 }
 
-//Caculate the height
-const scrollLinks = $$(".scroll-link");
+//Adjust height
 scrollLinks.forEach((scrollLink) => {
-    scrollLink.onclick = (e) => {
+    scrollLink.onclick = ((e) => {
+
         e.preventDefault();
 
-        const id = e.currentTarget.getAttribute("href").slice(1);
-        const element = document.getElementById(id);
-        let navbarHeight = navbar.getBoundingClientRect().height;
-        let linksContainerHeight = linksContainer.getBoundingClientRect().height;
+        const id = e.target.getAttribute('href').slice(1);
+        const elementClicked = document.getElementById(id).offsetTop;
 
-        let position = element.offsetTop - navbarHeight;
-        const is_FixedNav = navbar.classList.contains("fixed-nav");
+        const navHeight = nav.getBoundingClientRect().height;
+        const linksContainerHeight = linksContainer.getBoundingClientRect().height;
+        const is_FixedNav = nav.classList.contains('fixed-nav');
+        console.log(is_FixedNav);
 
+        let position = elementClicked - navHeight;
+        console.log(position);
         if(!is_FixedNav) {
-            position = position - navbarHeight;
+            position = position - navHeight;
         }
-
-        if(navbarHeight > 82) {
+        if(navHeight > 82) {
             position = position + linksContainerHeight;
         }
 
-
         window.scrollTo({
-            left: 0,
+            left:0,
             top: position
         })
-
-
         linksContainer.style.height = 0;
-    }
+    })
 })
